@@ -1,66 +1,76 @@
-BallModel ball; //<>//
-GoalModel goal;
-BallModel[] balls;
+GameMasterModel gameMaster; //<>//
 KeeperModel keeper;
+boolean boolUpDifficulty;
+int currentDiffculty;
+
 void setup()
 {
+  currentDiffculty = 5;
+  keeper = new KeeperModel(true,false);
+  gameMaster = new GameMasterModel(currentDiffculty);// ballIndex
+  gameMaster.initballs();
   size(800, 800);
-  ball = new BallModel();
-  balls = new BallModel[5];
-  goal = new GoalModel();
-  keeper = new KeeperModel(#FA08FF);//colour
-  initballs();
+
 }
 
 void draw()
-{
+{ //<>//
   background(255);
   keeper.drawKeeper();
-  keeper.moveKeeper();
-  goal.drawGoal(40);
+  gameMaster.drawBalls();
+  gameMaster.collisionDetection();
+  gameMaster.ResendBalls();
+  boolUpDifficulty = gameMaster.increaseDifficulty();
+  upDifficulty();
+  println(gameMaster.score);
+}
 
-
-  for (int i = 0; i < 5; i++)
+void upDifficulty()
+{
+  if(boolUpDifficulty == true)
   {
-    balls[i].drawBall();
-    balls[i].moveBall();
+  currentDiffculty = currentDiffculty+1;
+  gameMaster = new GameMasterModel(currentDiffculty);
+  gameMaster.initballs();
+  boolUpDifficulty = false;
   }
 }
+
+void reInitGame()
+{
+if(keeper.isAlive == false)
+{
+ currentDiffculty = 5;
+ gameMaster = new GameMasterModel(currentDiffculty);
+ keeper = new KeeperModel(true,false);
+ gameMaster.initballs();
+}
+}
+
+void mousePressed()
+{
+  if(mouseButton == LEFT && keeper.isAlive == true) // must check for alive else you can bring your self back to life
+  {
+   keeper = new KeeperModel(true,false);
+  }
+  if(mouseButton == RIGHT && keeper.isAlive == true)// must check for alive else you can bring your self back to life
+  {
+   keeper = new KeeperModel(false,true);
+  }
+
+}   
 
 void keyPressed()
 {
-  if (key == 'a')
+  if(key =='r')
   {
-    keeper.boolLeft = true;
-    keeper.boolRight = false;
+  reInitGame();
   }
-  if (key == 'd')
-  {
-    keeper.boolLeft = false;
-    keeper.boolRight = true;
-  }
-    if (key == 's')
-  {
-    keeper.boolLeft = false;
-    keeper.boolRight = false;
-  }
-      if (key == 'e')
-  {
-    keeper.IsPowerActive = true;
-  }
-        if (key == 'q')
-  {
-    keeper.IsPowerActive = false;
-  }
+  
 }
-void initballs()
-{
-  for (int i = 0; i < 5; i++)
-  {
-    ball = new BallModel();
-    balls[i] = ball;
-  }
-}
+  
+  
+
 
 //eksamens projekt
 //få variabler med som int, string, float, boolean
