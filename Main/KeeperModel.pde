@@ -10,18 +10,7 @@ class KeeperModel
   boolean redKeeper;
   boolean isAlive;
   
-  KeeperModel()
-  {
-    size = height/20;
-    x = mouseX;
-    y = mouseY;
 
-    isAlive = true;
-    blueKeeper = false;
-    redKeeper = false;
-
-    colour = keeperColour();
-  }
   KeeperModel(boolean tempRed, boolean tempBlue)
   {
     size = height/20;
@@ -34,6 +23,7 @@ class KeeperModel
     redKeeper = tempRed;
     
     colour = keeperColour();
+    
   }
 
   void drawKeeper()
