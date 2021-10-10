@@ -3,63 +3,65 @@ class KeeperModel
   int x;
   int y;
   int size;
-  int speed;
-  int colour;
-  int superPowerColour;
-  int superPowerSize;
-  boolean IsPowerActive;
-  boolean boolRight;
-  boolean boolLeft;
 
-  KeeperModel(int tempColour)
+  int colour;
+
+  boolean blueKeeper;
+  boolean redKeeper;
+  boolean isAlive;
+  
+  KeeperModel()
   {
     size = height/20;
-    x = height/2;
-    y = height-(size*3);// to keep it a bit above ground
+    x = mouseX;
+    y = mouseY;
 
-    speed = 5;
-    colour = tempColour;
-    superPowerColour = #FFEE55;
-    superPowerSize = size*2;
-    boolRight = false;
-    boolLeft = false;
-    IsPowerActive = false;
+    isAlive = true;
+    blueKeeper = false;
+    redKeeper = false;
+
+    colour = keeperColour();
+  }
+  KeeperModel(boolean tempRed, boolean tempBlue)
+  {
+    size = height/20;
+    x = mouseX;
+    y = mouseY;
+
+    isAlive = true;
+
+    blueKeeper = tempBlue;
+    redKeeper = tempRed;
+    
+    colour = keeperColour();
   }
 
   void drawKeeper()
   {
-    if (IsPowerActive == true)
+    if(isAlive == true)
     {
-      fill(superPowerColour);
-      circle(x, y, superPowerSize);
-      noFill();
-      stroke(1);
-    } 
-    else if (IsPowerActive == false)
-    {
-      fill(colour);
-      circle(x, y, size);
-      noFill();
+    fill(colour);
+    x = mouseX;
+    y = mouseY;
+    circle(x,y,size);
     }
-  }
-  void moveKeeper()
-  {
-    if (boolRight == true)
+    else
     {
-      moveRight();
+      println("u dead bro");
     }
-    if (boolLeft == true)
-    {
-      moveLeft();
-    }
-  }
-  void moveRight()
-  {
-    x = x+speed;
   }
 
-  void moveLeft()
+  int keeperColour()
   {
-    x = x-speed;
+    if (blueKeeper == true)
+    {
+      colour = #0A08FC;
+    } 
+    else if (redKeeper == true)
+    {
+      colour = #FC0320;
+    }
+
+    return colour;
   }
 }
