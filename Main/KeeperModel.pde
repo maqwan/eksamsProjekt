@@ -9,7 +9,7 @@ class KeeperModel
   boolean blueKeeper;
   boolean redKeeper;
   boolean isAlive;
-  
+
 
   KeeperModel(boolean tempRed, boolean tempBlue)
   {
@@ -21,24 +21,20 @@ class KeeperModel
 
     blueKeeper = tempBlue;
     redKeeper = tempRed;
-    
+
     colour = keeperColour();
-    
   }
 
   void drawKeeper()
   {
-    if(isAlive == true)
+    if (isAlive == true)
     {
-    fill(colour);
-    x = mouseX;
-    y = mouseY;
-    circle(x,y,size);
-    }
-    else
-    {
-      println("u dead bro");
-    }
+      fill(colour);
+      x = mouseX;
+      y = mouseY;
+      circle(x, y, size);
+    } 
+
   }
 
   int keeperColour()
@@ -46,8 +42,7 @@ class KeeperModel
     if (blueKeeper == true)
     {
       colour = #0A08FC;
-    } 
-    else if (redKeeper == true)
+    } else if (redKeeper == true)
     {
       colour = #FC0320;
     }
